@@ -18,7 +18,7 @@
 
 > 堆，是一个进程的虚拟内存区域。首先看一下堆结构
 
-![csapp8-1](https://www.hiteva.cn/static/article/csapp/csapp8-1.png)
+![csapp8-1](../image/csapp8-1.png)
 
 > 堆的地址是连续的，一整块内存区域都是堆，那么如何管理这一整块内存区域呢。有三种常见的方式
 >
@@ -41,7 +41,7 @@
 
 > 看看块结构，方便代码理解
 
-![csapp8-2](https://www.hiteva.cn/static/article/csapp/csapp8-2.png)
+![csapp8-2](../image/csapp8-2.png)
 
 **3. 实现**
 

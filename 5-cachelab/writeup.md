@@ -37,7 +37,7 @@
 > 2. 每块结构为一个有效位v，一个标志位tag，一个数据块data
 > 3. cache地址分为三部分：标志位tag，组索引s，块偏移b
 
-![csapp5-1](https://www.hiteva.cn/static/article/csapp/csapp5-1.png)
+![csapp5-1](../image/csapp5-1.png)
 
 > 然后我们想，cache的运作方式是怎样的：
 >
@@ -49,7 +49,7 @@
 >
 > 这就是cache的运作机制，实现架构为
 
-![csapp5-2](https://www.hiteva.cn/static/article/csapp/csapp5-2.png)
+![csapp5-2](../image/csapp5-2.png)
 
 > 那开始我们的代码：
 >

@@ -16,7 +16,7 @@
 
 > 先来运行一下，加上-q是不发送到服务器，在本地运行，可以看到确实存在缓冲区溢出漏洞
 
-![csapp3-1](https://www.hiteva.cn/static/article/csapp/csapp3-1.png)
+![csapp3-1](../image/csapp3-1.png)
 
 > 在看看源代码，这个getbuf有意思，可能会缓冲区溢出
 
@@ -59,7 +59,7 @@ void touch1() {
 > 3. 开辟的40个字节中没有存储返回地址，返回地址在调用getbuf的test栈帧中，但紧邻这40个字节
 > 4. 康康图（图画的有点抽象）
 
-![csapp3-2](https://www.hiteva.cn/static/article/csapp/csapp3-2.png)
+![csapp3-2](../image/csapp3-2.png)
 
 > 因此，我们读入40个字节的填充物，就可以直接修改返回地址啦。改为touch1的地址，注意是小端序，为c0 17 40
 
@@ -133,7 +133,7 @@ Disassembly of section .text:
 
 > 让getbuf读入我们这一段机器指令，存储在栈帧上，然后我们用第一关的方法让getbuf函数返回到我们读入的那一段机器指令开始处，然后执行我们的代码
 
-![csapp3-3](https://www.hiteva.cn/static/article/csapp/csapp3-3.png)
+![csapp3-3](../image/csapp3-3.png)
 
 > 现在关键就是getbuf返回的那个点怎么找，即我们写入的getbuf开辟到的40个字节的起始位置在哪里，用gdb在getbuf调用的时候下个断点，即
 
@@ -185,7 +185,7 @@ void touch3(char *sval){
 >
 > **但有个问题，test函数调用getbuf，getbuf读入字符串，然后返回到我们的注入代码开始执行，但是当我们getbuf返回的那一刻，getbuf的执行了add    $0x28,%rsp，即getbuf开辟的40个字节的空间不受到保护了，在执行完我们的注入的机器代码返回到touch3函数，touch3调用了hexmatch函数，该函数刚开始被调用就开辟了128字节空间，而*s可以是在这128字节空间里的任意位置操作的，很可能破坏原来的40个字节，导致hexmatch在比较字符串之前就破坏了我们传入的字符串，导致比较失败，因此我们要把字符串放在更安全的test栈帧里面，即5561dca8（可以在test下断点找%rsp），因此：**
 
-![csapp3-4](https://www.hiteva.cn/static/article/csapp/csapp3-4.png)
+![csapp3-4](../image/csapp3-4.png)
 
 ```
 movq   $0x5561dca8,%rdi
